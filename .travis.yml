@@ -1,0 +1,12 @@
+language: bash
+
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+script:
+  - docker build -t docker-app-desktop-updater:latest .
+  - docker tag docker-app-desktop-updater:latest kwasek/docker-app-desktop-updater:latest
+  - docker push kwasek/docker-app-desktop-updater:latest
